@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Calendar</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        td {
+            cursor: pointer;
+        }
+        .event-form {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<table id="calendar">
+    <thead>
+        <tr>
+            <th>Sun</th>
+            <th>Mon</th>
+            <th>Tue</th>
+            <th>Wed</th>
+            <th>Thu</th>
+            <th>Fri</th>
+            <th>Sat</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Calendar content will be added dynamically using JavaScript -->
+    </tbody>
+</table>
+
+<div class="event-form" id="eventForm">
+    <h3>Add Event</h3>
+    <label for="eventName">Event Name:</label>
+    <input type="text" id="eventName" required>
+    <label for="eventDate">Event Date:</label>
+    <input type="date" id="eventDate" required>
+    <button onclick="addEvent()">Add Event</button>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    // Generate the calendar
+    function generateCalendar(year, month) {
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        const daysInMonth = lastDay.getDate();
+
+        let tableBody = "";
+        let dayCounter = 1;
+
+        for (let i = 0; i < 6; i++) {
+            let row = "<tr>";
+            for (let j = 0; j < 7; j++) {
+                if ((i === 0 && j < firstDay.getDay()) || dayCounter > daysInMonth) {
+                    row += "<td></td>"; // Empty cell before the first day and after the last day
+                } else {
+                    row += `<td onclick="showEventForm(${year}, ${month + 1}, ${dayCounter})">${dayCounter}</td>`;
+                    dayCounter++;
+                }
+            }
+            row += "</tr>";
+            tableBody += row;
+        }
+
+        $("#calendar tbody").html(ta
