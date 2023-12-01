@@ -130,7 +130,11 @@
 
             // You can handle the event data here, for now, let's just hide the form
             $("#eventForm").hide();
-            generateCalendar(new Date(eventDate).getFullYear(), new Date(eventDate).getMonth());
+            // Extract year and month from the event date
+            const year = new Date(eventDate).getFullYear();
+            const month = new Date(eventDate).getMonth();
+
+            generateCalendar(year, month);
             updateEventDots();
         } else {
             alert("Please enter event name, date, and color.");
